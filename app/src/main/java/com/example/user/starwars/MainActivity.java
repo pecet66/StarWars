@@ -20,5 +20,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         peopleRecycleView.setLayoutManager(new LinearLayoutManager(this));
 
+
+        PeopleApiInterfaceService service = client.create
+
     }
 }

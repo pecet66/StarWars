@@ -1,9 +1,14 @@
 package com.example.user.starwars;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by user on 08.07.2016.
  */
 public class Person {
+
+
     String name;
     String birthYear;
     String eyeColor;
@@ -11,6 +16,8 @@ public class Person {
     String gender;
     String hairColor;
     String mass;
+    public static List<Person>;
+
 
     public String getName() {
         return name;
