@@ -18,10 +18,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        peopleRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        //peopleRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        configViews();
 
+    }
 
-        PeopleApiInterfaceService service = client.create
-
+    private void configViews() {
+        peopleRecycleView = (RecyclerView)this.findViewById(R.id.peopleRecycleView);
+        peopleRecycleView.setHasFixedSize(true);
+        peopleRecycleView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        peopleRecycleView.setAdapter(new PeopleAdapter());
     }
 }

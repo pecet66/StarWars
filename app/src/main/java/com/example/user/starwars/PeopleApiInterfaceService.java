@@ -13,7 +13,6 @@ import retrofit2.http.Path;
  */
 public interface PeopleApiInterfaceService {
 
-    @GET("http://swapi.co/api/people/")
-
-    public void getPeopleContent(Callback<Person> callback);
+    @GET("people")
+    public void getPeopleContent(Callback<ResultSet> callback);
 }
