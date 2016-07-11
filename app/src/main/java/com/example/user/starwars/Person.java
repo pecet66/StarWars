@@ -2,13 +2,14 @@ package com.example.user.starwars;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by user on 08.07.2016.
  */
-public class Person {
+public class Person implements Serializable {
 
     @Expose
     String name;
