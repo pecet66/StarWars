@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         ArrayList<Person> people = new ArrayList<>();
         restClient = new RestClient();
         Call<ResultSet> resultSetCall= restClient.getPeopleService().getPeopleContent();
@@ -40,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ResultSet> call, Response<ResultSet> response) {
                 if(response.isSuccessful()) {
                     ResultSet resultSet = response.body();
-                    Log.i("asd", response.body().getCount());
+                    Timber.d("Person count: %s",response.body().getCount());
                     ArrayList<Person> people = new ArrayList<>(response.body().getResults());
-                    Log.i("asd", people.size()+"");
+                    Timber.d("People size: %s",people.size()+"");
                     peopleAdapter.add(people);
                     peopleAdapter.notifyDataSetChanged();
                 }

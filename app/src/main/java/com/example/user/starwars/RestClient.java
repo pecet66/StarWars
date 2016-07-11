@@ -9,6 +9,7 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,13 +22,20 @@ public class RestClient {
 
     protected PeopleService getPeopleService() {
         if (peopleService == null) {
-
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient
+                    .Builder()
+                    .addInterceptor(interceptor)
+                    .build();
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create();
 
-            Retrofit retrofit = new Retrofit.Builder()
+            Retrofit retrofit = new Retrofit
+                    .Builder()
                     .baseUrl(BASE_URL)
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 
