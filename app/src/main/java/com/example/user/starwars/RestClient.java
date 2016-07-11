@@ -1,15 +1,14 @@
 package com.example.user.starwars;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,28 +17,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RestClient {
     private static final String BASE_URL = "http://swapi.co/api/";
-    private static PeopleApiInterfaceService peopleApiInterfaceService;
+    private static PeopleService peopleService;
 
-    public static PeopleApiInterfaceService getClient() {
-        if (peopleApiInterfaceService == null) {
-            OkHttpClient okClient = new OkHttpClient();
-            okClient.interceptors().add(new Interceptor() {
-                @Override
-                public Response intercept(Interceptor.Chain chain) throws IOException {
-                    Response response = chain.proceed(chain.request());
-                    return response;
-                }
-            });
+    protected PeopleService getPeopleService() {
+        if (peopleService == null) {
+
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(okClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 
-            peopleApiInterfaceService = retrofit.create(PeopleApiInterfaceService.class);
+            peopleService = retrofit.create(PeopleService.class);
 
         }
-        return peopleApiInterfaceService;
+        return peopleService;
     }
 }

@@ -1,7 +1,9 @@
 package com.example.user.starwars;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +23,14 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
     public PeopleAdapter() {
     }
 
-    public PeopleAdapter(Context context, ResultSet people) {
-        this.people = people.result;
+    public PeopleAdapter(ArrayList<Person> people, LayoutInflater layoutInflater) {
+        this.people = people;
         this.layoutInflater= layoutInflater;
+    }
 
-        //super(context, R.layout.people_list_row, people);
+    public void add(ArrayList<Person> list){
+        people = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,6 +56,14 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
 
         public PeopleViewHolder(View itemView) {
             super(itemView);
+            nameView = (TextView) itemView.findViewById(R.id.textView);
+            nameView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("asd", (person.name));
+
+                }
+            });
         }
         public void setPerson(Person person) {
             this.person = person;

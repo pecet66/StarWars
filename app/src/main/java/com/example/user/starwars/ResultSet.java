@@ -9,10 +9,10 @@ import java.util.List;
 public class ResultSet {
 
     String count;
-    ArrayList<Person> result;
+    ArrayList<Person> results;
 
     public ResultSet(ArrayList<Person> result) {
-        this.result = result;
+        this.results = result;
     }
 
     public String getCount() {
@@ -20,6 +20,10 @@ public class ResultSet {
     }
 
     public ArrayList<Person> getResult() {
-        return result;
+        return results;
+    }
+
+    public ArrayList<Person> getResults() {
+        return results;
     }
 }

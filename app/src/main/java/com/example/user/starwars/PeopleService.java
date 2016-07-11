@@ -11,8 +11,8 @@ import retrofit2.http.Path;
 /**
  * Created by user on 08.07.2016.
  */
-public interface PeopleApiInterfaceService {
+public interface PeopleService {
 
     @GET("people")
-    public void getPeopleContent(Callback<ResultSet> callback);
+    Call<ResultSet> getPeopleContent();
 }
