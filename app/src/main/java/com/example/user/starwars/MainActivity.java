@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.peopleRecycleView)
     RecyclerView peopleRecycleView;
     private RestClient restClient;
-    private PeopleAdapter peopleAdapter;
-    private ArrayList<Person> people = new ArrayList<>();
 
 
     @Override

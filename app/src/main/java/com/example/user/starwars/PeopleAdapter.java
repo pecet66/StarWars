@@ -33,7 +33,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
     public PeopleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.people_list_row, parent, false);
         return new PeopleViewHolder(row);
-        //return null;
     }
 
     @Override
@@ -51,21 +50,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
         private TextView nameTextView;
         private TextView birthTextView;
 
-        /*public PeopleViewHolder(View itemView) {
-            super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.textView);
-            birthTextView = (TextView) itemView.findViewById(R.id.textView2);
-
-            nameTextView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-
-                    Log.i("asd", (person.name));
-
-                }
-            });
-        }*/
         public PeopleViewHolder(View itemView) {
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.textView);
