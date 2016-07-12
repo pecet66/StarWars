@@ -9,6 +9,8 @@ import butterknife.ButterKnife;
 
 public class DetailsActivity extends AppCompatActivity {
 
+    public static final String KEY_PERSON = "PERSON";
+
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.birth)
@@ -30,7 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
-        person = (Person) getIntent().getExtras().getSerializable("Person");
+        person = getIntent().getExtras().getParcelable(KEY_PERSON);
         name.setText(person.getName());
         birth.setText(person.getBirthYear());
         gender.setText(person.getGender());
