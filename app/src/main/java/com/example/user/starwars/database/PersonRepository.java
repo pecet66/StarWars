@@ -107,6 +107,7 @@ public class PersonRepository implements Repository<Person> {
             person.setEyeColor((cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.PersonColumns.EYE_COLOR))));
             person.setHairColor((cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.PersonColumns.HAIR_COLOR))));
             items.add(person);
+            cursor.close();
         }
         database.endTransaction();
         database.close();
