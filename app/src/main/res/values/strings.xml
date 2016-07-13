@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">StarWars</string>
     <string name="error_list_empty">Lista jest pusta</string>
+    <string name="vechicles_string">Vechicles</string>
+    <string name="planets_string">Planets</string>
+    <string name="people_string">People</string>
 </resources>
