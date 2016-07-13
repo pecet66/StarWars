@@ -9,11 +9,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.example.user.starwars.database.ItemsSQLiteOpenHelper;
 import com.example.user.starwars.database.PersonRepository;
+import com.example.user.starwars.database.PersonSpecification;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,12 +83,23 @@ public class MainActivity extends AppCompatActivity implements PeopleAdapter.Peo
                     Timber.i(people.size()+"");
                     adapter.setItems(people);
                     database.add(people);
+
+                    ///shit
+
+                    ArrayList<Person> query = new ArrayList<>(database.query(new PersonSpecification()));
+                    for (int i = 0; i < query.size(); i++) {
+                        Person o =  query.get(i);
+                        Timber.i(o.toString());
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Call<ResultSet> call, Throwable t) {
                 Timber.e(t,t.getMessage());
+                ArrayList<Person> query = new ArrayList<>(database.query(new PersonSpecification()));
+                adapter.setItems(query);
             }
         });
     }

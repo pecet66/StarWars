@@ -92,6 +92,19 @@ public class Person implements Parcelable {
     public Person() {
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", birthYear='" + birthYear + '\'' +
+                ", eyeColor='" + eyeColor + '\'' +
+                ", height='" + height + '\'' +
+                ", gender='" + gender + '\'' +
+                ", hairColor='" + hairColor + '\'' +
+                ", mass='" + mass + '\'' +
+                '}';
+    }
+
     protected Person(Parcel in) {
         this.name = in.readString();
         this.birthYear = in.readString();

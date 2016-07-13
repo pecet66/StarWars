@@ -20,9 +20,9 @@ public class ItemsSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        Timber.i("tworze baze");
+        Timber.i("Tworze baze");
         sqLiteDatabase.execSQL("CREATE TABLE " + ItemsTable.TABLE_NAME + " (" +
-                ItemsTable.PersonColumns.NAME + " TEXT, " +
+                ItemsTable.PersonColumns.NAME + " TEXT PRIMARY KEY, " +
                 ItemsTable.PersonColumns.BIRTH_YEAR + " TEXT, " +
                 ItemsTable.PersonColumns.EYE_COLOR + " TEXT, " +
                 ItemsTable.PersonColumns.GENDER + " TEXT, " +
@@ -33,6 +33,7 @@ public class ItemsSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ItemsTable.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }

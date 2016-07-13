@@ -2,14 +2,19 @@ package com.example.user.starwars.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.user.starwars.Person;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by user on 12.07.2016.
@@ -42,10 +47,18 @@ public class PersonRepository implements Repository<Person> {
                 contentValues.put(ItemsTable.PersonColumns.MASS, item.getMass());
                 contentValues.put(ItemsTable.PersonColumns.EYE_COLOR, item.getEyeColor());
                 contentValues.put(ItemsTable.PersonColumns.HAIR_COLOR, item.getHairColor());
-                database.insert(ItemsTable.TABLE_NAME, null, contentValues);
+
+                try {
+                    database.insertOrThrow(ItemsTable.TABLE_NAME, null, contentValues);
+                } catch (SQLiteConstraintException e) {
+                    Timber.e(e.getMessage());
+                }
             }
             database.setTransactionSuccessful();
-        } finally {
+        }
+        catch (SQLiteException ex) {
+            Timber.e(ex.toString()); }
+        finally {
             database.endTransaction();
             database.close();
         }
@@ -69,10 +82,13 @@ public class PersonRepository implements Repository<Person> {
 
     @Override
     public List<Person> query(Specification specification) {
-        List<Person> items = new ArrayList<Person>();
+        final SqlSpecification sqlSpecification = (SqlSpecification) specification;
         final SQLiteDatabase database = openHelper.getReadableDatabase();
+        final Cursor cursor = database.rawQuery(sqlSpecification.toSqlQuery(), new String[]{});
+        List<Person> items = new ArrayList<Person>();
         database.beginTransaction();
-        Cursor cursor = database.rawQuery(specification.toString(), new String[] {
+
+        /*Cursor cursor = database.rawQuery(specification.toSqlString(), new String[] {
                 ItemsTable.PersonColumns.NAME,
                 ItemsTable.PersonColumns.BIRTH_YEAR,
                 ItemsTable.PersonColumns.GENDER,
@@ -80,7 +96,7 @@ public class PersonRepository implements Repository<Person> {
                 ItemsTable.PersonColumns.HEIGHT,
                 ItemsTable.PersonColumns.EYE_COLOR,
                 ItemsTable.PersonColumns.HAIR_COLOR,
-        });
+        });*/
         while(cursor.moveToNext()) {
             Person person = new Person();
             person.setName((cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.PersonColumns.BIRTH_YEAR))));
