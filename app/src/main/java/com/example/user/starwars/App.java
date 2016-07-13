@@ -14,7 +14,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
             Stetho.initializeWithDefaults(this);
 //                    Stetho.newInitializerBuilder(this)
@@ -22,5 +22,11 @@ public class App extends Application {
 //                            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
 //                            .build());
         }
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());
     }
 }
+
