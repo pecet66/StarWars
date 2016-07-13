@@ -1,59 +1,113 @@
 package com.example.user.starwars;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.helper.ItemTouchHelper;
+
+import com.example.user.starwars.database.ItemsSQLiteOpenHelper;
+import com.example.user.starwars.database.PersonRepository;
+import com.example.user.starwars.database.PersonSpecification;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PeopleAdapter.PeopleClickListener {
 
+    public static final String HTTP_SWAPI_CO_API = "http://swapi.co/api/";
     @BindView(R.id.peopleRecycleView)
     RecyclerView peopleRecycleView;
-    private RestClient restClient;
-
+    private PersonRepository database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        database =  new PersonRepository(new ItemsSQLiteOpenHelper(this));
         ArrayList<Person> people = new ArrayList<>();
-        restClient = new RestClient();
-        Call<ResultSet> resultSetCall= restClient.getPeopleService().getPeopleContent();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build();
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HTTP_SWAPI_CO_API)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        StarWarsService service = retrofit.create(StarWarsService.class);
+        Call<ResultSet> peopl = service.listPeople();
         peopleRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        final PeopleAdapter peopleAdapter = new PeopleAdapter(people, getLayoutInflater());
-        peopleRecycleView.setAdapter(peopleAdapter);
+        final PeopleAdapter adapter = new PeopleAdapter(people);
+        adapter.setOnClickListener(this);
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return true;
+            }
 
-        resultSetCall.enqueue(new Callback<ResultSet>() {
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                adapter.notifyDataSetChanged();
+            }
+        };
+        ItemTouchHelper touchHelper = new ItemTouchHelper(simpleCallback);
+        touchHelper.attachToRecyclerView(peopleRecycleView);
+        peopleRecycleView.setAdapter(adapter);
+
+        peopl.enqueue(new Callback<ResultSet>() {
             @Override
             public void onResponse(Call<ResultSet> call, Response<ResultSet> response) {
-                if(response.isSuccessful()) {
-                    ResultSet resultSet = response.body();
-                    Timber.d("Person count: %s",response.body().getCount());
+                if(response.isSuccessful()){
+                    Timber.i(response.body().getCount());
                     ArrayList<Person> people = new ArrayList<>(response.body().getResults());
-                    Timber.d("People size: %s",people.size()+"");
-                    peopleAdapter.add(people);
-                    peopleAdapter.notifyDataSetChanged();
+                    Timber.i(people.size()+"");
+                    adapter.setItems(people);
+                    database.add(people);
+
+                    ///shit
+
+                    ArrayList<Person> query = new ArrayList<>(database.query(new PersonSpecification()));
+                    for (int i = 0; i < query.size(); i++) {
+                        Person o =  query.get(i);
+                        Timber.i(o.toString());
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Call<ResultSet> call, Throwable t) {
-                Log.i("asd", t.getMessage());
+                Timber.e(t,t.getMessage());
+                ArrayList<Person> query = new ArrayList<>(database.query(new PersonSpecification()));
+                adapter.setItems(query);
             }
         });
+    }
 
-
+    @Override
+    public void onPersonClick(Person person) {
+        Intent details = new Intent(this, DetailsActivity.class);
+        details.putExtra(DetailsActivity.KEY_PERSON, person);
+        startActivity(details);
     }
 }

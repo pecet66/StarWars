@@ -1,6 +1,10 @@
 package com.example.user.starwars;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+
 import java.util.List;
 
 /**
@@ -9,21 +13,22 @@ import java.util.List;
 public class ResultSet {
 
     String count;
-    ArrayList<Person> results;
-
-    public ResultSet(ArrayList<Person> result) {
-        this.results = result;
-    }
+    List<Person> results;
 
     public String getCount() {
         return count;
     }
 
-    public ArrayList<Person> getResult() {
+    public void setCount(String count) {
+        count = count;
+    }
+
+    public List<Person> getResults() {
         return results;
     }
 
-    public ArrayList<Person> getResults() {
-        return results;
+    public void setResults(List<Person> results) {
+        this.results = results;
     }
 }
+
