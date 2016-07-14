@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/inbox"
-            android:checked="false"
+            android:id="@+id/nav_people"
             android:icon="@drawable/ic_accessibility_black_24dp"
-            android:title="@string/people_string" />
-
+            android:title="People" />
         <item
-            android:id="@+id/starred"
-            android:checked="false"
+            android:id="@+id/nav_planets"
             android:icon="@drawable/ic_backup_black_24dp"
-            android:title="@string/planets_string" />
-
+            android:title="Planets" />
         <item
-            android:id="@+id/sent_mail"
-            android:checked="false"
+            android:id="@+id/nav_starships"
             android:icon="@drawable/ic_flight_takeoff_black_24dp"
-            android:title="@string/vechicles_string" />
+            android:title="Starships" />
     </group>
 
 </menu>
