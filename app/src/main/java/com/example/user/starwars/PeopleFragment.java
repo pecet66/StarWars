@@ -1,5 +1,6 @@
 package com.example.user.starwars;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -23,7 +24,7 @@ import timber.log.Timber;
 /**
  * Created by user on 14.07.2016.
  */
-public class PeopleFragment extends Fragment implements PeopleListContract.View {
+public class PeopleFragment extends Fragment implements PeopleListContract.View, PeopleAdapter.PeopleClickListener {
 
     @BindView(R.id.peopleRecycleView)
     RecyclerView peopleRecycleView;
@@ -78,10 +79,18 @@ public class PeopleFragment extends Fragment implements PeopleListContract.View 
     private void ensureAdapter(List<Person> items) {
         if (adapter == null) {
             adapter = new PeopleAdapter(items);
-            //adapter.setOnClickListener(this);
+            adapter.setOnClickListener(this);
             peopleRecycleView.setAdapter(adapter);
         } else {
             adapter.setItems(items);
         }
+    }
+
+    @Override
+    public void onPersonClick(Person person) {
+        Intent details = new Intent(getContext(), DetailsActivity.class);
+        details.putExtra("Person", person);
+        startActivity(details);
+
     }
 }
