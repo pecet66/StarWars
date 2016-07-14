@@ -1,11 +1,11 @@
 package com.example.user.starwars.mvp.contract;
 
-import com.example.user.starwars.pojo.Person;
+import com.example.user.starwars.pojo.Planets;
 
 /**
  * Created by user on 13.07.2016.
  */
-public interface DetailsContract {
+public interface PlanetsContract {
 
     interface Presenter {
 
@@ -14,6 +14,6 @@ public interface DetailsContract {
 
     interface View {
 
-        void onDataLoaded(Person item);
+        void onDataLoaded(Planets item);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.user.starwars;
+package com.example.user.starwars.pojo;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by user on 08.07.2016.
  */
 public class Person implements Serializable {
+    public static final String PERSON_KEY = "Person";
     String name;
     String birthYear;
     String eyeColor;

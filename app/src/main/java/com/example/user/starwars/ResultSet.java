@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * Created by user on 11.07.2016.
  */
-public class ResultSet {
+public class ResultSet<T> {
 
     String count;
-    List<Person> results;
+    List<T> results;
 
     public String getCount() {
         return count;
@@ -23,11 +23,11 @@ public class ResultSet {
         count = count;
     }
 
-    public List<Person> getResults() {
+    public List<T> getResults() {
         return results;
     }
 
-    public void setResults(List<Person> results) {
+    public void setResults(List<T> results) {
         this.results = results;
     }
 }

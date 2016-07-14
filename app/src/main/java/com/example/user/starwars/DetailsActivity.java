@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.user.starwars.mvp.contract.DetailsContract;
-import com.example.user.starwars.mvp.presenter.DetailsPresenter;
+import com.example.user.starwars.mvp.presenter.PeopleDetailsPresenter;
+import com.example.user.starwars.pojo.Person;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +36,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
-        presenter = new DetailsPresenter(getIntent(), this);
+        presenter = new PeopleDetailsPresenter(getIntent(), this);
         presenter.getData();
     }
 
