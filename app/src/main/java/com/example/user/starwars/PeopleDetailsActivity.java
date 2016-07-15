@@ -11,9 +11,9 @@ import com.example.user.starwars.pojo.Person;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailsActivity extends AppCompatActivity implements DetailsContract.View {
+public class PeopleDetailsActivity extends AppCompatActivity implements DetailsContract.View {
 
-    @BindView(R.id.name)
+    @BindView(R.id.name_people)
     TextView name;
     @BindView(R.id.birth)
     TextView birth;
@@ -34,7 +34,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_people_details);
         ButterKnife.bind(this);
         presenter = new PeopleDetailsPresenter(getIntent(), this);
         presenter.getData();

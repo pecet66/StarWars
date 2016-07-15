@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_people) {
             return PeopleFragment.newInstance();
         } else if (id == R.id.nav_planets) {
-            return PeopleFragment.newInstance();
+            return PlanetsFragment.newInstance();
         } else if (id == R.id.nav_starships) {
-            return PeopleFragment.newInstance();
+            return StarshipsFragment.newInstance();
         } else {
             throw new IllegalArgumentException("Invalid page ID");
         }

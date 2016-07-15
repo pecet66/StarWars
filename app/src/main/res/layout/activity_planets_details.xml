@@ -7,11 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.user.starwars.DetailsActivity">
+    tools:context=".PeopleDetailsActivity">
 
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/name_planet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="50dp"
@@ -22,19 +22,19 @@
         android:id="@+id/birthlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
+        android:layout_below="@id/name_planet"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Year of Birth:"
+            android:text="Terrain"
             android:textAlignment="viewStart"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/birth"
+            android:id="@+id/terrain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
@@ -57,12 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Gender:"
+            android:text="Surface"
             android:textAlignment="viewStart"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/gender"
+            android:id="@+id/surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/birth"
@@ -86,12 +86,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Height"
+            android:text="Created"
             android:textAlignment="viewStart"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/height"
+            android:id="@+id/created"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/gender"
@@ -113,12 +113,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Mass:"
+            android:text="Climate"
             android:textAlignment="viewStart"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/mass"
+            android:id="@+id/climate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/gender"
@@ -140,46 +140,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Eyes color:"
+            android:text="Gravity"
             android:textAlignment="viewStart"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/eyescolor"
+            android:id="@+id/gravity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/gender"
             android:padding="3dp"
-            android:text="blue"
+            android:text="gravity"
             android:textAlignment="viewEnd"
             android:textSize="25dp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/haircolorlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/eyecolorlayout"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text="Hair color:"
-            android:textAlignment="viewStart"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/hairscolor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/gender"
-            android:padding="3dp"
-            android:text="blonde"
-            android:textAlignment="viewEnd"
-            android:textSize="25dp" />
-
-    </LinearLayout>
 </RelativeLayout>

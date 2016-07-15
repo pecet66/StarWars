@@ -1,6 +1,8 @@
 package com.example.user.starwars.pojo;
 
-public class Starships
+import java.io.Serializable;
+
+public class Starships implements Serializable
 {
     public static final String STARSHIPS_KEY = "Starships";
     private String edited;

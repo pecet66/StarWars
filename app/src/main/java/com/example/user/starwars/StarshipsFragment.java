@@ -11,10 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.user.starwars.mvp.adapter.PeopleAdapter;
-import com.example.user.starwars.mvp.contract.PeopleListContract;
-import com.example.user.starwars.mvp.presenter.PeopleListPresenter;
-import com.example.user.starwars.pojo.Person;
+import com.example.user.starwars.mvp.adapter.StarshipsAdapter;
+import com.example.user.starwars.mvp.contract.StarshipsListContract;
+import com.example.user.starwars.mvp.presenter.StarshipsListPresenter;
+import com.example.user.starwars.pojo.Starships;
 
 import java.util.List;
 
@@ -25,17 +25,17 @@ import timber.log.Timber;
 /**
  * Created by user on 14.07.2016.
  */
-public class PeopleFragment extends Fragment implements PeopleListContract.View, PeopleAdapter.PeopleClickListener {
+public class StarshipsFragment extends Fragment implements StarshipsListContract.View, StarshipsAdapter.StarshipsClickListener {
 
     @BindView(R.id.peopleRecycleView)
     RecyclerView peopleRecycleView;
 
-    private PeopleListContract.Presenter presenter;
-    private PeopleAdapter adapter;
+    private StarshipsListContract.Presenter presenter;
+    private StarshipsAdapter adapter;
 
-    public static PeopleFragment newInstance() {
+    public static StarshipsFragment newInstance() {
         Bundle args = new Bundle();
-        PeopleFragment fragment = new PeopleFragment();
+        StarshipsFragment fragment = new StarshipsFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +53,7 @@ public class PeopleFragment extends Fragment implements PeopleListContract.View,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_people_list, container, false);
         ButterKnife.bind(this,view);
-        presenter = new PeopleListPresenter(this, getContext());
+        presenter = new StarshipsListPresenter(this, getContext());
         peopleRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         presenter.getData();
         return view;
@@ -68,7 +68,7 @@ public class PeopleFragment extends Fragment implements PeopleListContract.View,
 
 
     @Override
-    public void onDataLoaded(List<Person> items) {
+    public void onDataLoaded(List<Starships> items) {
         ensureAdapter(items);
     }
 
@@ -77,9 +77,9 @@ public class PeopleFragment extends Fragment implements PeopleListContract.View,
         Timber.e("blad");
     }
 
-    private void ensureAdapter(List<Person> items) {
+    private void ensureAdapter(List<Starships> items) {
         if (adapter == null) {
-            adapter = new PeopleAdapter(items);
+            adapter = new StarshipsAdapter(items);
             adapter.setOnClickListener(this);
             peopleRecycleView.setAdapter(adapter);
         } else {
@@ -88,9 +88,9 @@ public class PeopleFragment extends Fragment implements PeopleListContract.View,
     }
 
     @Override
-    public void onPersonClick(Person person) {
-        Intent details = new Intent(getContext(), PeopleDetailsActivity.class);
-        details.putExtra("Person", person);
+    public void onPersonClick(Starships person) {
+        Intent details = new Intent(getContext(), StarshipsDetailsActivity.class);
+        details.putExtra("Starships", person);
         startActivity(details);
 
     }

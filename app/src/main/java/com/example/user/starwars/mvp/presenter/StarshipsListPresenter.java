@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.user.starwars.ResultSet;
 import com.example.user.starwars.StarWarsService;
+import com.example.user.starwars.pojo.Planets;
 import com.example.user.starwars.pojo.Starships;
 import com.example.user.starwars.mvp.contract.StarshipsListContract;
 import com.google.gson.FieldNamingPolicy;
@@ -55,9 +56,9 @@ public class StarshipsListPresenter implements StarshipsListContract.Presenter {
 
     @Override
     public void getData() {
-        service.listStarships().enqueue(new Callback<ResultSet>() {
+        service.listStarships().enqueue(new Callback<ResultSet<Starships>>() {
             @Override
-            public void onResponse(Call<ResultSet> call, Response<ResultSet> response) {
+            public void onResponse(Call<ResultSet<Starships>> call, Response<ResultSet<Starships>> response) {
                 if(response.isSuccessful()){
                     Timber.i(response.body().getCount());
                     List<Starships> items = new ArrayList<>(response.body().getResults());
@@ -68,7 +69,7 @@ public class StarshipsListPresenter implements StarshipsListContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<ResultSet> call, Throwable t) {
+            public void onFailure(Call<ResultSet<Starships>> call, Throwable t) {
                 Timber.i("Bład komunikacji pobieram dane z bazy");
                 /*if (t instanceof IOException) {
                     List<Person> people = database.query(new PeopleSpecification());

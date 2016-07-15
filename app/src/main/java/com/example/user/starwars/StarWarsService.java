@@ -1,6 +1,8 @@
 package com.example.user.starwars;
 
 import com.example.user.starwars.pojo.Person;
+import com.example.user.starwars.pojo.Planets;
+import com.example.user.starwars.pojo.Starships;
 
 import java.util.List;
 
@@ -17,10 +19,10 @@ public interface StarWarsService {
     Call<ResultSet<Person>> listPeople();
 
     @GET("planets/")
-    Call<ResultSet> listPlanets();
+    Call<ResultSet<Planets>> listPlanets();
 
     @GET("starships/")
-    Call<ResultSet> listStarships();
+    Call<ResultSet<Starships>> listStarships();
 
 
 }

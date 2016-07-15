@@ -55,9 +55,9 @@ public class PlanetsListPresenter implements PlanetsListContract.Presenter {
 
     @Override
     public void getData() {
-        service.listPlanets().enqueue(new Callback<ResultSet>() {
+        service.listPlanets().enqueue(new Callback<ResultSet<Planets>>() {
             @Override
-            public void onResponse(Call<ResultSet> call, Response<ResultSet> response) {
+            public void onResponse(Call<ResultSet<Planets>> call, Response<ResultSet<Planets>> response) {
                 if(response.isSuccessful()){
                     Timber.i(response.body().getCount());
                     List<Planets> items = new ArrayList<>(response.body().getResults());
@@ -68,7 +68,7 @@ public class PlanetsListPresenter implements PlanetsListContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<ResultSet> call, Throwable t) {
+            public void onFailure(Call<ResultSet<Planets>> call, Throwable t) {
                 Timber.i("Bład komunikacji pobieram dane z bazy");
                 /*if (t instanceof IOException) {
                     List<Person> people = database.query(new PeopleSpecification());

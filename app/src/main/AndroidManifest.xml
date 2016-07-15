@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailsActivity" />
+        <activity android:name=".PeopleDetailsActivity" />
+        <activity android:name=".PlanetsDetailsActivity" />
+        <activity android:name=".StarshipsDetailsActivity" />
+
         <!--<activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main2"
