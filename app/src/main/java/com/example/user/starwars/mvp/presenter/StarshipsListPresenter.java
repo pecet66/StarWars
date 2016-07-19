@@ -2,9 +2,8 @@ package com.example.user.starwars.mvp.presenter;
 
 import android.content.Context;
 
-import com.example.user.starwars.ResultSet;
-import com.example.user.starwars.StarWarsService;
-import com.example.user.starwars.pojo.Planets;
+import com.example.user.starwars.netModule.ResultSet;
+import com.example.user.starwars.netModule.StarWarsService;
 import com.example.user.starwars.pojo.Starships;
 import com.example.user.starwars.mvp.contract.StarshipsListContract;
 import com.google.gson.FieldNamingPolicy;

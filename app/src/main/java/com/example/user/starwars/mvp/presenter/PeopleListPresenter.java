@@ -2,30 +2,22 @@ package com.example.user.starwars.mvp.presenter;
 
 import android.content.Context;
 
-import com.example.user.starwars.AppProvider;
+import com.example.user.starwars.appModule.AppProvider;
 import com.example.user.starwars.pojo.Person;
 import com.example.user.starwars.R;
-import com.example.user.starwars.ResultSet;
-import com.example.user.starwars.StarWarsService;
-import com.example.user.starwars.database.StarWarsSQLiteOpenhelper;
-import com.example.user.starwars.database.people.PeopleRepository;
-import com.example.user.starwars.database.people.specification.PeopleSpecification;
+import com.example.user.starwars.netModule.ResultSet;
+import com.example.user.starwars.netModule.StarWarsService;
+import com.example.user.starwars.databaseModule.people.PeopleRepository;
+import com.example.user.starwars.databaseModule.people.specification.PeopleSpecification;
 import com.example.user.starwars.mvp.contract.PeopleListContract;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 /**

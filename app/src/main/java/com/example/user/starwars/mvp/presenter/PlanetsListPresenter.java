@@ -1,40 +1,38 @@
 package com.example.user.starwars.mvp.presenter;
 
-import android.content.Context;
-
+import com.example.user.starwars.mvp.contract.ItemsListContract;
 import com.example.user.starwars.pojo.Planets;
-import com.example.user.starwars.ResultSet;
-import com.example.user.starwars.StarWarsService;
+import com.example.user.starwars.netModule.ResultSet;
+import com.example.user.starwars.netModule.StarWarsService;
 import com.example.user.starwars.mvp.contract.PlanetsListContract;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 /**
  * Created by user on 13.07.2016.
  */
-public class PlanetsListPresenter implements PlanetsListContract.Presenter {
+public class PlanetsListPresenter implements ItemsListContract.Presenter {
 
     public static final String HTTP_SWAPI_CO_API = "http://swapi.co/api/";
 
+
     private final PlanetsListContract.View view;
     private final StarWarsService service;
+
+    //PlanetsListContract.View mView;
     //private final PeopleRepository database;
 
 
-    public PlanetsListPresenter(PlanetsListContract.View view, Context context) {
+
+    /*public PlanetsListPresenter(PlanetsListContract.View view, Context context) {
         this.view = view;
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -49,9 +47,37 @@ public class PlanetsListPresenter implements PlanetsListContract.Presenter {
                 .build();
         service = retrofit.create(StarWarsService.class);
         //database =  new PeopleRepository(new StarWarsSQLiteOpenhelper(context));
+    }*/
+    @Inject
+    public PlanetsListPresenter(StarWarsService service, PlanetsListContract.View mView) {
 
-
+        this.view = mView;
+       this.service = service;
     }
+
+    /*@Override
+    public void getData() {
+        retrofit.create(StarWarsService.class).listPlanets().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<Planets>>() {
+                    @Override
+                    public void onCompleted() {
+                        view.showComplete();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(List<Post> posts) {
+                        mView.showPosts(posts);
+                    }
+                });
+    }*/
+
 
     @Override
     public void getData() {
@@ -69,8 +95,8 @@ public class PlanetsListPresenter implements PlanetsListContract.Presenter {
 
             @Override
             public void onFailure(Call<ResultSet<Planets>> call, Throwable t) {
-                Timber.i("Bład komunikacji pobieram dane z bazy");
-                /*if (t instanceof IOException) {
+                /*Timber.i("Bład komunikacji pobieram dane z bazy");
+                if (t instanceof IOException) {
                     List<Person> people = database.query(new PeopleSpecification());
                     if(people.isEmpty()){
                         view.onErrorOccured(R.string.error_list_empty);
