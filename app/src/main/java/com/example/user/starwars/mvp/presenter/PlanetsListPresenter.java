@@ -24,7 +24,7 @@ public class PlanetsListPresenter implements ItemsListContract.Presenter {
     public static final String HTTP_SWAPI_CO_API = "http://swapi.co/api/";
 
 
-    private final PlanetsListContract.View view;
+    private final ItemsListContract.View view;
     private final StarWarsService service;
 
     //PlanetsListContract.View mView;
@@ -49,7 +49,7 @@ public class PlanetsListPresenter implements ItemsListContract.Presenter {
         //database =  new PeopleRepository(new StarWarsSQLiteOpenhelper(context));
     }*/
     @Inject
-    public PlanetsListPresenter(StarWarsService service, PlanetsListContract.View mView) {
+    public PlanetsListPresenter(StarWarsService service, ItemsListContract.View mView) {
 
         this.view = mView;
        this.service = service;

@@ -33,13 +33,13 @@ import timber.log.Timber;
 /**
  * Created by user on 14.07.2016.
  */
-public class PlanetsFragment extends Fragment implements PlanetsListContract.View, PlanetsAdapter.PlanetsClickListener {
+public class PlanetsFragment extends Fragment implements ItemsListContract.View, PlanetsAdapter.PlanetsClickListener {
 
     @BindView(R.id.itemRecyclerView)
     RecyclerView itemRecyclerView;
 
     @Inject
-    public Planets presenter;
+    public PlanetsListPresenter presenter;
 
     @Inject
     @Named("app")
@@ -86,7 +86,7 @@ public class PlanetsFragment extends Fragment implements PlanetsListContract.Vie
 
 
     @Override
-    public void onDataLoaded(List<Planets> items) {
+    public void onDataLoaded(List items) {
         ensureAdapter(items);
     }
 
@@ -96,13 +96,9 @@ public class PlanetsFragment extends Fragment implements PlanetsListContract.Vie
         Timber.e("blad");
     }
 
-    @Override
-    public void showComplete() {
-
-    }
 
 
-    private void ensureAdapter(List<Planets> items) {
+    private void ensureAdapter(List items) {
         if (adapter == null) {
             adapter = new PlanetsAdapter(items);
             adapter.setOnClickListener(this);

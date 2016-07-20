@@ -17,16 +17,16 @@ import dagger.Provides;
 @Module
 public class FragmentModule {
 
-    private final PlanetsListPresenter mView;
+    private final ItemsListContract.View mView;
 
 
-    public FragmentModule(PlanetsListPresenter mView) {
+    public FragmentModule(ItemsListContract.View mView) {
         this.mView = mView;
     }
 
     @Provides
     @CustomScope
-    public PlanetsListPresenter providesMainScreenContractView() {
+    public ItemsListContract.View providesMainScreenContractView() {
         return mView;
     }
 
