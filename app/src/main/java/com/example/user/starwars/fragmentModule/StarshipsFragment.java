@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.starwars.R;
+import com.example.user.starwars.appModule.App;
+import com.example.user.starwars.mvp.contract.ItemsListContract;
 import com.example.user.starwars.mvp.view.StarshipsDetailsActivity;
 import com.example.user.starwars.mvp.adapter.StarshipsAdapter;
 import com.example.user.starwars.mvp.contract.StarshipsListContract;
@@ -20,6 +22,8 @@ import com.example.user.starwars.pojo.Starships;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -27,12 +31,14 @@ import timber.log.Timber;
 /**
  * Created by user on 14.07.2016.
  */
-public class StarshipsFragment extends Fragment implements StarshipsListContract.View, StarshipsAdapter.StarshipsClickListener {
+public class StarshipsFragment extends Fragment implements ItemsListContract.View, StarshipsAdapter.StarshipsClickListener {
 
     @BindView(R.id.itemRecyclerView)
     RecyclerView peopleRecycleView;
 
-    private StarshipsListContract.Presenter presenter;
+    @Inject
+    public StarshipsListPresenter presenter;
+
     private StarshipsAdapter adapter;
 
     public static StarshipsFragment newInstance() {
@@ -46,7 +52,11 @@ public class StarshipsFragment extends Fragment implements StarshipsListContract
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        DaggerFragmentComponent.builder()
+                .netComponent(((App) getActivity().getApplication()).getNetComponent())
+                .fragmentModule(new FragmentModule(this))
+                .build()
+                .inject(this);
     }
 
 
@@ -55,7 +65,7 @@ public class StarshipsFragment extends Fragment implements StarshipsListContract
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_items_list, container, false);
         ButterKnife.bind(this,view);
-        presenter = new StarshipsListPresenter(this, getContext());
+        //presenter = new StarshipsListPresenter(this, getContext());
         peopleRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         presenter.getData();
         return view;
@@ -70,7 +80,7 @@ public class StarshipsFragment extends Fragment implements StarshipsListContract
 
 
     @Override
-    public void onDataLoaded(List<Starships> items) {
+    public void onDataLoaded(List items) {
         ensureAdapter(items);
     }
 
@@ -79,7 +89,7 @@ public class StarshipsFragment extends Fragment implements StarshipsListContract
         Timber.e("blad");
     }
 
-    private void ensureAdapter(List<Starships> items) {
+    private void ensureAdapter(List items) {
         if (adapter == null) {
             adapter = new StarshipsAdapter(items);
             adapter.setOnClickListener(this);

@@ -37,7 +37,7 @@ public class PeopleFragment extends Fragment implements ItemsListContract.View, 
     RecyclerView itemRecyclerView;
 
     //public PeopleListContract.Presenter presenter;
-    //@Inject
+    @Inject
     public PeopleListPresenter presenter;
 
     public PeopleAdapter adapter;
@@ -53,11 +53,11 @@ public class PeopleFragment extends Fragment implements ItemsListContract.View, 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*DaggerFragmentComponent.builder()
+        DaggerFragmentComponent.builder()
                 .netComponent(((App) getActivity().getApplication()).getNetComponent())
                 .fragmentModule(new FragmentModule(this))
                 .build()
-                .inject(this);*/
+                .inject(this);
     }
 
 

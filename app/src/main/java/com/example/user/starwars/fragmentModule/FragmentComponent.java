@@ -17,4 +17,5 @@ public interface FragmentComponent {
 
     void inject(PlanetsFragment fragment);
     void inject(PeopleFragment fragment);
+    void inject(StarshipsFragment fragment);
 }

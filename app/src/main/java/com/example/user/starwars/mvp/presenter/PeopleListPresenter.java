@@ -3,6 +3,7 @@ package com.example.user.starwars.mvp.presenter;
 import android.content.Context;
 
 import com.example.user.starwars.appModule.AppProvider;
+import com.example.user.starwars.mvp.contract.ItemsListContract;
 import com.example.user.starwars.pojo.Person;
 import com.example.user.starwars.R;
 import com.example.user.starwars.netModule.ResultSet;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,19 +26,17 @@ import timber.log.Timber;
 /**
  * Created by user on 13.07.2016.
  */
-public class PeopleListPresenter implements PeopleListContract.Presenter {
+public class PeopleListPresenter implements ItemsListContract.Presenter {
 
-    private final PeopleListContract.View view;
+    private final ItemsListContract.View view;
     private final StarWarsService service;
-    private final PeopleRepository database;
 
 
-    public PeopleListPresenter(PeopleListContract.View view, Context context) {
-        this.view = view;
-        AppProvider appProvider = (AppProvider) context.getApplicationContext();
-        service = appProvider.getStarWarsService();
-        database =  appProvider.getPeopleRepository();
+    @Inject
+    public PeopleListPresenter(StarWarsService service, ItemsListContract.View mView) {
 
+        this.view = mView;
+        this.service = service;
     }
 
     @Override
@@ -47,21 +48,21 @@ public class PeopleListPresenter implements PeopleListContract.Presenter {
                     Timber.i(response.body().getCount());
                     List<Person> people = new ArrayList<>(response.body().getResults());
                     Timber.i(people.size()+"");
-                    database.add(people);
+                    //database.add(people);
                     view.onDataLoaded(people);
                 }
             }
 
             @Override
             public void onFailure(Call<ResultSet<Person>> call, Throwable t) {
-                Timber.i("Bład komunikacji pobieram dane z bazy");
+                /*Timber.i("Bład komunikacji pobieram dane z bazy");
                 if (t instanceof IOException) {
                     List<Person> people = database.query(new PeopleSpecification());
                     if(people.isEmpty()){
                         view.onErrorOccured(R.string.error_list_empty);
                     }
                     view.onDataLoaded(people);
-                }
+                }*/
             }
         });
 

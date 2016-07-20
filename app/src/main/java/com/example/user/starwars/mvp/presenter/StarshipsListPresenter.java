@@ -2,6 +2,7 @@ package com.example.user.starwars.mvp.presenter;
 
 import android.content.Context;
 
+import com.example.user.starwars.mvp.contract.ItemsListContract;
 import com.example.user.starwars.netModule.ResultSet;
 import com.example.user.starwars.netModule.StarWarsService;
 import com.example.user.starwars.pojo.Starships;
@@ -12,6 +13,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,16 +28,16 @@ import timber.log.Timber;
 /**
  * Created by user on 13.07.2016.
  */
-public class StarshipsListPresenter implements StarshipsListContract.Presenter {
+public class StarshipsListPresenter implements ItemsListContract.Presenter {
 
     public static final String HTTP_SWAPI_CO_API = "http://swapi.co/api/";
 
-    private final StarshipsListContract.View view;
+    private final ItemsListContract.View view;
     private final StarWarsService service;
     //private final PeopleRepository database;
 
 
-    public StarshipsListPresenter(StarshipsListContract.View view, Context context) {
+    /*public StarshipsListPresenter(StarshipsListContract.View view, Context context) {
         this.view = view;
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -51,6 +54,13 @@ public class StarshipsListPresenter implements StarshipsListContract.Presenter {
         //database =  new PeopleRepository(new StarWarsSQLiteOpenhelper(context));
 
 
+    }*/
+
+    @Inject
+    public StarshipsListPresenter(StarWarsService service, ItemsListContract.View mView) {
+
+        this.view = mView;
+        this.service = service;
     }
 
     @Override
