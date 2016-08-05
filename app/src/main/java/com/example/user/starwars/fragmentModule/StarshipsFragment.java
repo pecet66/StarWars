@@ -18,6 +18,7 @@ import com.example.user.starwars.mvp.view.StarshipsDetailsActivity;
 import com.example.user.starwars.mvp.adapter.StarshipsAdapter;
 import com.example.user.starwars.mvp.contract.StarshipsListContract;
 import com.example.user.starwars.mvp.presenter.StarshipsListPresenter;
+import com.example.user.starwars.pojo.PersonA;
 import com.example.user.starwars.pojo.Starships;
 
 import java.util.List;

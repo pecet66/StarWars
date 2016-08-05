@@ -10,6 +10,7 @@ import com.example.user.starwars.pojo.Person;
 import com.example.user.starwars.databaseModule.people.specification.PeopleSpecification;
 import com.example.user.starwars.databaseModule.Repository;
 import com.example.user.starwars.databaseModule.Specification;
+import com.example.user.starwars.pojo.PersonA;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -54,6 +55,11 @@ public class PeopleRepository implements Repository<Person> {
                     person.put(PeopleTable.Columns.MASS, item.getMass());
                     writableDatabase.insertOrThrow(PeopleTable.TABLE_NAME, null, person);
                     Timber.i("dodano do bazy danych: %s", item);
+
+                    PersonA.builder()
+                            .nickname("test")
+                            .gender("fafsa");
+
                     cursor.close();
                 }
             }

@@ -1,5 +1,8 @@
 package com.example.user.starwars.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
@@ -70,6 +73,40 @@ public class Person implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (name != null ? !name.equals(person.name) : person.name != null) return false;
+        if (birthYear != null ? !birthYear.equals(person.birthYear) : person.birthYear != null)
+            return false;
+        if (eyeColor != null ? !eyeColor.equals(person.eyeColor) : person.eyeColor != null)
+            return false;
+        if (height != null ? !height.equals(person.height) : person.height != null) return false;
+        if (gender != null ? !gender.equals(person.gender) : person.gender != null) return false;
+        if (hairColor != null ? !hairColor.equals(person.hairColor) : person.hairColor != null)
+            return false;
+        return mass != null ? mass.equals(person.mass) : person.mass == null;
+
+    }
+
+
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (birthYear != null ? birthYear.hashCode() : 0);
+        result = 31 * result + (eyeColor != null ? eyeColor.hashCode() : 0);
+        result = 31 * result + (height != null ? height.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (hairColor != null ? hairColor.hashCode() : 0);
+        result = 31 * result + (mass != null ? mass.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
@@ -81,4 +118,5 @@ public class Person implements Serializable {
                 ", mass='" + mass + '\'' +
                 '}';
     }
+
 }

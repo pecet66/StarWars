@@ -40,4 +40,15 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.5'
     compile 'com.google.dagger:dagger:2.5'
     provided 'javax.annotation:jsr250-api:1.0'
+
+
+    // Google AutoValue
+    apt 'com.google.auto.value:auto-value:1.2'
+    provided 'com.google.auto.value:auto-value:1.2' // needed for Android Studio
+    apt 'com.gabrielittner.auto.value:auto-value-with:1.0.0-rc1'
+    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.3-rc2'
+
+    apt 'com.gabrielittner.auto.value:auto-value-cursor:1.0.0-rc1'
+// if you need the @ColumnName or @ColumnAdapter annotations also include this:
+    compile 'com.gabrielittner.auto.value:auto-value-cursor-annotations:1.0.0-rc1'
 }
